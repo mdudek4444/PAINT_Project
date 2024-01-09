@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Nowy produkt</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+</head>
+<body>
+
+<div align="center" class="container mt-5">
+    <h1>Dodaj nowy produkt</h1>
+    <br/>
+
+    <form action="#" th:action="@{/saveProdukt}" th:object="${produkty}" method="post">
+        <table class="table" cellpadding="10">
+
+            <tr>
+                <td>Numer produktu:</td>
+                <td><input type="text" th:field="*{nr_produktu}" name="nr_produktu"></td>
+            </tr>
+
+            <tr>
+                <td>Nazwa produktu:</td>
+                <td><input type="text" th:field="*{nazwa_produktu}" name="nazwa_produktu"></td>
+            </tr>
+
+            <tr>
+                <td>Cena:</td>
+                <td><input type="text" th:field="*{cena}" name="cena"></td>
+            </tr>
+
+            <tr>
+                <td>Rodzaj produktu:</td>
+                <td><input type="text" th:field="*{rodzaj_produktu}" name="rodzaj_produktu"></td>
+            </tr>
+
+            <tr>
+                <td>Nazwa producenta:</td>
+                <td><input type="text" th:field="*{producent}" name="producent"></td>
+            </tr>
+
+            <tr>
+                <td>Numer klubu:</td>
+                <td><input type="text" th:field="*{nr_klubu}" name="nr_klubu"></td>
+            </tr>
+
+            <tr>
+                <td>Numer producenta:</td>
+                <td><input type="text" th:field="*{nr_producenta}" name="nr_producenta"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div class="button-container">
+                        <button class="btn btn-primary" type="submit">Zapisz</button>
+                        <a th:href="@{/produkty}" class="btn btn-secondary">Anuluj</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

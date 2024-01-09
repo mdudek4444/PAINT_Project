@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Nowe zamowienie</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+</head>
+<body>
+
+<div align="center" class="container mt-5">
+    <h1>Dodaj nowe zamowienie</h1>
+    <br/>
+
+    <form action="#" th:action="@{/saveZamowienie}" th:object="${zamowienia}" method="post">
+        <table class="table" cellpadding="10">
+
+            <tr>
+                <td>Numer zamowienia:</td>
+                <td><input type="text" th:field="*{nr_zamowienia}" name="nr_zamowienia"></td>
+            </tr>
+
+            <tr>
+                <td>Data złożenia zamowienia:</td>
+                <td><input type="text" th:field="*{data_zlozenia}" name="data_zlozenia"></td>
+            </tr>
+
+            <tr>
+                <td>Data wpłaty:</td>
+                <td><input type="text" th:field="*{data_wplaty}" name="data_wplaty"></td>
+            </tr>
+
+            <tr>
+                <td>Data przyjęcia zamówienia:</td>
+                <td><input type="text" th:field="*{data_przyjecia_zamowienia}" name="data_przyjecia_zamowienia"></td>
+            </tr>
+
+            <tr>
+                <td>Numer klubu:</td>
+                <td><input type="text" th:field="*{nr_klubu}" name="nr_klubu"></td>
+            </tr>
+
+            <tr>
+                <td>Numer kibica:</td>
+                <td><input type="text" th:field="*{nr_kibica}" name="nr_kibica"></td>
+            </tr>
+
+            <tr>
+                <td>Numer faktury:</td>
+                <td><input type="text" th:field="*{nr_faktury}" name="nr_faktury"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div class="button-container">
+                        <button class="btn btn-primary" type="submit">Zapisz</button>
+                        <a th:href="@{/zamowienia}" class="btn btn-secondary">Anuluj</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

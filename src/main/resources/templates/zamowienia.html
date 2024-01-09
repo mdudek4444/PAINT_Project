@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Zamowienia</title>
+
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <!-- Dodaj dodatkowe arkusze stylów lub skrypty, jeśli są wymagane -->
+
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <!-- Dodaj dowolne elementy nawigacyjne, jeśli są wymagane -->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <!-- Page header -->
+  <h1 class="text-center">Tabela z zamówieniami</h1>
+
+  <!-- Entry to new page -->
+  <div class="text-center">
+    <a class="btn btn-primary" href="/newZamowienie">Dodaj nowe zamowienie</a>
+  </div>
+  <br/>
+
+  <!-- Table -->
+  <table class="table table-bordered table-hover">
+    <!-- Table headers -->
+    <thead class="thead-dark">
+    <tr>
+      <th>Numer zamowienia</th>
+      <th>Data złożenia zamównienia</th>
+      <th>Data wpłaty</th>
+      <th>Data przyjęcia zamówienia</th>
+      <th>Numer klubu</th>
+      <th>Numer kibica</th>
+      <th>Numer faktury</th>
+      <th>Akcje</th>
+    </tr>
+    </thead>
+    <!-- Table body -->
+    <tbody>
+    <!-- Iteracja przez bilety i wyświetlanie ich informacji -->
+    <tr th:each="zamowienie: ${listZamowienia}">
+      <td th:text="${zamowienie.nr_zamowienia}">Numer zamowienia</td>
+      <td th:text="${zamowienie.data_zlozenia}">Data złożenia zamówienia</td>
+      <td th:text="${zamowienie.data_wplaty}">Data wpłaty</td>
+      <td th:text="${zamowienie.data_przyjecia_zamowienia}">Data przyjęcia zamówienia</td>
+      <td th:text="${zamowienie.nr_klubu}">Numer klubu</td>
+      <td th:text="${zamowienie.nr_kibica}">Numer kibica</td>
+      <td th:text="${zamowienie.nr_faktury}">Numer faktury</td>
+      <td>
+        <a class="btn btn-warning" th:href="@{'/editZamowienie/' + ${zamowienie.nr_zamowienia}}">Edytuj</a>
+        <a class="btn btn-danger" th:href="@{'/deleteZamowienie/' + ${zamowienie.nr_zamowienia}}">Usuń</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Przycisk powrotu do strony main w zależności od roli użytkownika -->
+  <div class="text-center">
+    <a class="btn btn-secondary" th:href="@{${#httpServletRequest.isUserInRole('ADMIN')} ? '/main_admin' : '/main_user'}">Wróć</a>
+  </div>
+</div>
+
+<!-- Dodaj dodatkowe skrypty, jeśli są wymagane -->
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<!-- Dodaj dodatkowe skrypty, jeśli są wymagane -->
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Produkty</title>
+
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <!-- Dodaj dodatkowe arkusze stylów lub skrypty, jeśli są wymagane -->
+
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <!-- Dodaj dowolne elementy nawigacyjne, jeśli są wymagane -->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <!-- Page header -->
+  <h1 class="text-center">Tabela z produktami</h1>
+
+  <!-- Entry to new page -->
+  <div class="text-center">
+    <a class="btn btn-primary" href="/newProdukt">Dodaj nowy produkt</a>
+  </div>
+  <br/>
+
+  <!-- Table -->
+  <table class="table table-bordered table-hover">
+    <!-- Table headers -->
+    <thead class="thead-dark">
+    <tr>
+      <th>Numer produktu</th>
+      <th>Nazwa produktu</th>
+      <th>Cena</th>
+      <th>Rodzaj produktu</th>
+      <th>Producent</th>
+      <th>Numer klubu</th>
+      <th>Numer producenta</th>
+      <th>Akcje</th>
+    </tr>
+    </thead>
+    <!-- Table body -->
+    <tbody>
+    <!-- Iteracja przez bilety i wyświetlanie ich informacji -->
+    <tr th:each="produkt : ${listProdukty}">
+      <td th:text="${produkt.nr_produktu}">Numer produktu</td>
+      <td th:text="${produkt.nazwa_produktu}">Nazwa produktu</td>
+      <td th:text="${produkt.cena}">Cena</td>
+      <td th:text="${produkt.rodzaj_produktu}">Rodzaj produktu</td>
+      <td th:text="${produkt.producent}">Nazwa producenta</td>
+      <td th:text="${produkt.nr_klubu}">Numer klubu</td>
+      <td th:text="${produkt.nr_producenta}">Numer producenta</td>
+      <td>
+        <a class="btn btn-warning" th:href="@{'/editProdukt/' + ${produkt.nr_produktu}}">Edytuj</a>
+        <a class="btn btn-danger" th:href="@{'/deleteProdukt/' + ${produkt.nr_produktu}}">Usuń</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Przycisk powrotu do strony main w zależności od roli użytkownika -->
+  <div class="text-center">
+    <a class="btn btn-secondary" th:href="@{${#httpServletRequest.isUserInRole('ADMIN')} ? '/main_admin' : '/main_user'}">Wróć</a>
+  </div>
+</div>
+
+<!-- Dodaj dodatkowe skrypty, jeśli są wymagane -->
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<!-- Dodaj dodatkowe skrypty, jeśli są wymagane -->
+
+</body>
+</html>
