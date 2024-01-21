@@ -15,8 +15,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("user")
+                .withUser("szefkibic")
+                .password("szefkibic")
                 .roles("USER")
                 .and()
                 .withUser("admin")
@@ -29,12 +29,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/index").permitAll()  // Umożliwienie dostępu do strony startowej
+                .antMatchers("/", "/index").permitAll()
                 .antMatchers("/resources/static/**").permitAll()
                 .antMatchers("/main_admin").access("hasRole('ADMIN')")
                 .antMatchers("/main_user").access("hasRole('USER')")
-                .antMatchers("/main").authenticated()
-                .antMatchers("/bilety").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/bilety", "/pracownicy", "/mecze", "/zamowienia", "/produkty").hasRole("ADMIN") // Dodane ograniczenia dla USER
+                .antMatchers("/main").authenticated()  // Dostęp tylko dla zalogowanych użytkowników
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -43,9 +43,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/index")
+                .logoutSuccessUrl("/login")
                 .permitAll();
     }
+
+
 
 
 

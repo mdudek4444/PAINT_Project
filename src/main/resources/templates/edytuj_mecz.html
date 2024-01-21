@@ -5,6 +5,25 @@
     <meta charset="UTF-8">
     <title>Edytuj dane meczu</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+
+    <style>
+
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-image: url('css/boisko.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+  </style>
+    <script>
+    var currentPath = window.location.pathname;
+    var newUrl = window.location.href.replace(currentPath, "/");
+    history.replaceState({}, document.title, newUrl);
+</script>
 </head>
 <body>
 <div align="center" class="container mt-5">
@@ -18,34 +37,34 @@
             </tr>
             <tr>
                 <td>Drużyna przeciwna</td>
-                <td><input type="text" th:field="*{druzyna_przeciwna}"> </td>
+                <td><input type="text" th:field="*{druzyna_przeciwna}" required> </td>
             </tr>
             <tr>
                 <td>Data</td>
-                <td><input type="text" th:field="*{data}"> </td>
+                <td><input type="date" th:field="*{data}" required> </td>
             </tr>
             <tr>
                 <td>Godzina</td>
-                <td><input type="text" th:field="*{godzina}"> </td>
+                <td><input type="text" th:field="*{godzina}" required> </td>
             </tr>
             <tr>
                 <td>Imie sędziego</td>
-                <td><input type="text" th:field="*{imie_sedziego}"> </td>
+                <td><input type="text" th:field="*{imie_sedziego}" required> </td>
             </tr>
             <tr>
                 <td>Nazwisko sędziego</td>
-                <td><input type="text" th:field="*{nazwisko_sedziego}"> </td>
+                <td><input type="text" th:field="*{nazwisko_sedziego}" required> </td>
             </tr>
             <tr>
                 <td>Wynik</td>
-                <td><input type="text" th:field="*{wynik}"> </td>
+                <td><input type="text" th:field="*{wynik}" required> </td>
             </tr>
                 <td>Numer klubu</td>
-                <td><input type="text" th:field="*{nr_klubu}"> </td>
+                <td><input type="text" th:field="*{nr_klubu}" required> </td>
             </tr>
             <tr>
                 <td>Numer stadionu</td>
-                <td><input type="text" th:field="*{nr_stadionu}"> </td>
+                <td><input type="text" th:field="*{nr_stadionu}" required> </td>
             </tr>
 
             <tr>

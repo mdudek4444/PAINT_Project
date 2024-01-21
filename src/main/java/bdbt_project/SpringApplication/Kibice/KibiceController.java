@@ -3,11 +3,11 @@ package bdbt_project.SpringApplication.Kibice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -23,6 +23,8 @@ public class KibiceController {
         return "kibice";
     }
 
+
+
     @RequestMapping("/newKibic")
     public String showNowyKibic(Model model) {
         Kibice kibice = new Kibice();
@@ -30,8 +32,13 @@ public class KibiceController {
         return "nowy_kibic";
     }
 
+
     @RequestMapping(value = "/saveKibic", method = RequestMethod.POST)
-    public String save(@ModelAttribute("kibice") Kibice kibice) {
+    public String save(@Valid @ModelAttribute("kibice") Kibice kibice, BindingResult bindingResult,Model model) {
+
+        if (bindingResult.hasErrors()){
+            return "nowy_kibic";
+        }
         dao.save(kibice);
         return "redirect:/kibice";
     }
@@ -52,8 +59,9 @@ public class KibiceController {
     @RequestMapping("/deleteKibic/{Nr_kibica}")
     public String delete(@PathVariable(name = "Nr_kibica") int Nr_kibica) {
         dao.delete(Nr_kibica);
-        return "redirect:/kibica";
+        return "redirect:/kibice";
     }
+
 
 
 }

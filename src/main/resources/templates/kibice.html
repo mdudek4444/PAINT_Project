@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title><!DOCTYPE HTML>
-    <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-    <meta charset="UTF-8"/>
-    <title>Kibice</title>
+  <title>Kibice</title>
 
   <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <style>
+
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-image: url('css/boisko.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+  </style>
+  <script>
+    var currentPath = window.location.pathname;
+    var newUrl = window.location.href.replace(currentPath, "/");
+    history.replaceState({}, document.title, newUrl);
+</script>
   <!-- Dodaj dodatkowe arkusze stylów lub skrypty, jeśli są wymagane -->
 
 </head>
@@ -17,7 +31,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
-    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <a class="navbar-brand" href="/">Klub piłkarski</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -37,12 +51,13 @@
 
   <!-- Entry to new page -->
   <div class="text-center">
-    <a class="btn btn-primary" href="/newKibic">Dodaj nowego kibica</a>
+    <!-- Dla roli ADMIN -->
+    <a th:if="${#httpServletRequest.isUserInRole('ADMIN')}" class="btn btn-primary" href="/newKibic">Dodaj nowego kibica</a>
   </div>
   <br/>
 
   <!-- Table -->
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-hover table-light">
     <!-- Table headers -->
     <thead class="thead-dark">
     <tr>
@@ -62,19 +77,25 @@
     <tbody>
     <!-- Iteracja przez bilety i wyświetlanie ich informacji -->
     <tr th:each="kibic : ${listKibice}">
-    <tr th:each="kibic : ${listKibice}">
       <td th:text="${kibic.nr_kibica}">Numer kibica</td>
       <td th:text="${kibic.imie}">Imie</td>
       <td th:text="${kibic.nazwisko}">Nazwisko</td>
       <td th:text="${kibic.PESEL}">PESEL</td>
       <td th:text="${kibic.email}">Email</td>
       <td th:text="${kibic.telefon}">Telefon</td>
-      <td th:text="${kibic.data_urodzenia}">Data urodzenia</td>
+      <td th:text="${kibic.formattedDataUrodzenia}">Data urodzenia</td>
       <td th:text="${kibic.nr_klubu}">Numer klubu</td>
       <td th:text="${kibic.nr_adresu}">Numer adresu</td>
       <td>
-        <a class="btn btn-warning" th:href="@{'/editKibic/' + ${kibic.nr_kibica}}">Edytuj</a>
-        <a class="btn btn-danger" th:href="@{'/deleteKibic/' + ${kibic.nr_kibica}}">Usuń</a>
+        <div class="btn-group">
+          <!-- Dla roli USER -->
+          <a th:if="${#httpServletRequest.isUserInRole('USER')}" class="btn btn-warning mx-1" th:href="@{'/editKibic/' + ${kibic.nr_kibica}}">Edytuj</a>
+          <!-- Dla roli ADMIN -->
+          <a th:if="${#httpServletRequest.isUserInRole('ADMIN')}" class="btn btn-warning mx-1" th:href="@{'/editKibic/' + ${kibic.nr_kibica}}">Edytuj</a>
+
+          <!-- Dla roli ADMIN -->
+          <a th:if="${#httpServletRequest.isUserInRole('ADMIN')}" class="btn btn-danger" th:href="@{'/deleteKibic/' + ${kibic.nr_kibica}}">Usuń</a>
+        </div>
       </td>
     </tr>
     </tbody>

@@ -1,5 +1,8 @@
 package bdbt_project.SpringApplication.Mecze;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Mecze {
 
     private int Nr_meczu;
@@ -13,11 +16,11 @@ public class Mecze {
     private int Nr_stadionu;
 
 
-    public Mecze(int nr_meczu, String druzyna_przeciwna, String data, String godzina, String imie_sedziego,
+    public Mecze(int nr_meczu, String druzyna_przeciwna, Date data, String godzina, String imie_sedziego,
                  String nazwisko_sedziego, String wynik, int nr_klubu, int nr_stadionu) {
         this.Nr_meczu = nr_meczu;
         this.Druzyna_przeciwna = druzyna_przeciwna;
-        this.Data = data;
+        this.Data = String.valueOf(data);
         this.Godzina = godzina;
         this.Imie_sedziego = imie_sedziego;
         this.Nazwisko_sedziego = nazwisko_sedziego;
@@ -29,6 +32,18 @@ public class Mecze {
     public Mecze(){
 
     }
+
+    public String getFormattedData() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(Data);
+            return dateFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception according to your needs
+            return Data; // Return the original date if an error occurs
+        }
+    }
+
 
     public int getNr_meczu() {
         return Nr_meczu;

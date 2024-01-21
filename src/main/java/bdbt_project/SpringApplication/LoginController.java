@@ -3,6 +3,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -45,12 +46,20 @@ public class LoginController implements WebMvcConfigurer {
         }
     }
 
-    @RequestMapping(value={"/main_admin"})
+    @RequestMapping(value = "/main_admin")
     public String showAdminPage(Model model) {
         return "admin/main_admin";
     }
-    @RequestMapping(value={"/main_user"})
+
+    @RequestMapping(value = "/main_user")
     public String showUserPage(Model model) {
         return "user/main_user";
     }
+
+
+
+
 }
+
+
+

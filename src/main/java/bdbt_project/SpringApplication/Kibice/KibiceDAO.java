@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.sql.Types;
 
 @Repository
 public class KibiceDAO {
@@ -36,9 +37,11 @@ public class KibiceDAO {
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
 
         // Explicitly set the date format
-        insertActor.getJdbcTemplate().execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'");
+/*
+            insertActor.getJdbcTemplate().execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD'");
+*/
 
-        insertActor.withTableName("pracownicy").usingColumns("Nr_kibica","Imie","Nazwisko","PESEL","Email",
+        insertActor.withTableName("kibice").usingColumns("Nr_kibica","Imie","Nazwisko","PESEL","Email",
                 "Telefon","Data_urodzenia", "Nr_klubu","Nr_adresu");
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(kibice);
         insertActor.execute(param);
@@ -57,10 +60,12 @@ public class KibiceDAO {
     /* Update – aktualizacja danych */
     public void update(Kibice kibice) {
         String sql = "UPDATE Kibice SET Imie=:Imie, Nazwisko=:Nazwisko, PESEL=:PESEL, " +
-                 "Email=:Email, Telefon:=Telefon, Data_urodzenia=:Data_urodzenia, " +
-                "Nr_klubu=:Nr_klubu, Nr_adresu=:Nr_adresu, " + "WHERE Nr_kibica=:Nr_kibica";
+                 "Email=:Email, Telefon=:Telefon, Data_urodzenia=:Data_urodzenia, " +
+                "Nr_klubu=:Nr_klubu, Nr_adresu=:Nr_adresu " + "WHERE Nr_kibica=:Nr_kibica";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(kibice);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
+
+/*        template.getJdbcTemplate().execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD'");*/
 
         template.update(sql, param);
     }

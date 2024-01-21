@@ -5,6 +5,24 @@
   <title>Zamowienia</title>
 
   <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <style>
+
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-image: url('css/boisko.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+  </style>
+  <script>
+    var currentPath = window.location.pathname;
+    var newUrl = window.location.href.replace(currentPath, "/");
+    history.replaceState({}, document.title, newUrl);
+</script>
   <!-- Dodaj dodatkowe arkusze stylów lub skrypty, jeśli są wymagane -->
 
 </head>
@@ -13,7 +31,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
-    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <a class="navbar-brand" href="/">Klub piłkarski</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +56,7 @@
   <br/>
 
   <!-- Table -->
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-hover table-light">
     <!-- Table headers -->
     <thead class="thead-dark">
     <tr>
@@ -57,15 +75,17 @@
     <!-- Iteracja przez bilety i wyświetlanie ich informacji -->
     <tr th:each="zamowienie: ${listZamowienia}">
       <td th:text="${zamowienie.nr_zamowienia}">Numer zamowienia</td>
-      <td th:text="${zamowienie.data_zlozenia}">Data złożenia zamówienia</td>
-      <td th:text="${zamowienie.data_wplaty}">Data wpłaty</td>
-      <td th:text="${zamowienie.data_przyjecia_zamowienia}">Data przyjęcia zamówienia</td>
+      <td th:text="${zamowienie.formattedDataZlozenia}">Data złożenia zamówienia</td>
+      <td th:text="${zamowienie.formattedDataWplaty}">Data wpłaty</td>
+      <td th:text="${zamowienie.formattedDataPrzyjeciaZamowienia}">Data przyjęcia zamówienia</td>
       <td th:text="${zamowienie.nr_klubu}">Numer klubu</td>
       <td th:text="${zamowienie.nr_kibica}">Numer kibica</td>
       <td th:text="${zamowienie.nr_faktury}">Numer faktury</td>
       <td>
-        <a class="btn btn-warning" th:href="@{'/editZamowienie/' + ${zamowienie.nr_zamowienia}}">Edytuj</a>
-        <a class="btn btn-danger" th:href="@{'/deleteZamowienie/' + ${zamowienie.nr_zamowienia}}">Usuń</a>
+        <div class="btn-group">
+          <a class="btn btn-warning mx-1" th:href="@{'/editZamowienie/' + ${zamowienie.nr_zamowienia}}">Edytuj</a>
+          <a class="btn btn-danger mx-1" th:href="@{'/deleteZamowienie/' + ${zamowienie.nr_zamowienia}}">Usuń</a>
+        </div>
       </td>
     </tr>
     </tbody>

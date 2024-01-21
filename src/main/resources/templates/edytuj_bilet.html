@@ -5,6 +5,24 @@
   <meta charset="UTF-8">
   <title>Edytuj bilet</title>
   <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+  <style>
+
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-image: url('css/boisko.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+  </style>
+  <script>
+    var currentPath = window.location.pathname;
+    var newUrl = window.location.href.replace(currentPath, "/");
+    history.replaceState({}, document.title, newUrl);
+</script>
 </head>
 <body>
 <div align="center" class="container mt-5">
@@ -18,27 +36,27 @@
       </tr>
       <tr>
         <td>Rodzaj biletu</td>
-        <td><input type="text" th:field="*{rodzaj_biletu}"> </td>
+        <td><input type="text" th:field="*{rodzaj_biletu}" required> </td>
       </tr>
       <tr>
         <td>Cena</td>
-        <td><input type="text" th:field="*{cena}"> </td>
+        <td><input type="text" th:field="*{cena}" required> </td>
       </tr>
       <tr>
         <td>Data</td>
-        <td><input type="text" th:field="*{data}"> </td>
+        <td><input type="date" th:field="*{data}" required> </td>
       </tr>
       <tr>
         <td>Numer klubu</td>
-        <td><input type="text" th:field="*{nr_klubu}"> </td>
+        <td><input type="text" th:field="*{nr_klubu}" required> </td>
       </tr>
       <tr>
         <td>Numer kibica</td>
-        <td><input type="text" th:field="*{nr_kibica}"> </td>
+        <td><input type="text" th:field="*{nr_kibica}" required> </td>
       </tr>
       <tr>
         <td>Numer meczu</td>
-        <td><input type="text" th:field="*{nr_meczu}"> </td>
+        <td><input type="text" th:field="*{nr_meczu}"required> </td>
       </tr>
       <tr>
         <td colspan="2">

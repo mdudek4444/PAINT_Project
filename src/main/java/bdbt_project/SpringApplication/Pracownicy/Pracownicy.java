@@ -1,5 +1,8 @@
 package bdbt_project.SpringApplication.Pracownicy;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Pracownicy {
 
     private int Nr_pracownika;
@@ -9,10 +12,10 @@ public class Pracownicy {
     private String Plec;
     private int Telefon_sluzbowy;
     private String Obywatelstwo;
-    private String Data_urodzenia;
-    private String Data_zatrudnienia;
+    private Date Data_urodzenia;
+    private Date Data_zatrudnienia;
     private String Email;
-    private String Data_zwolnienia;
+    private Date Data_zwolnienia;
     private int Nr_klubu;
     private int Nr_stadionu;
     private int Nr_stanowiska;
@@ -20,8 +23,8 @@ public class Pracownicy {
 
 
     public Pracownicy(int nr_pracownika, String imie, String nazwisko, int PESEL, String plec, int telefon_sluzbowy,
-                      String obywatelstwo, String data_urodzenia, String data_zatrudnienia, String email,
-                      String data_zwolnienia, int nr_klubu, int nr_stadionu, int nr_stanowiska, int nr_adresu) {
+                      String obywatelstwo, Date data_urodzenia, Date data_zatrudnienia, String email,
+                      Date data_zwolnienia, int nr_klubu, int nr_stadionu, int nr_stanowiska, int nr_adresu) {
         this.Nr_pracownika = nr_pracownika;
         this.Imie = imie;
         this.Nazwisko = nazwisko;
@@ -41,6 +44,38 @@ public class Pracownicy {
 
     public Pracownicy() {
         // Konstruktor domyślny bez argumentów
+    }
+
+    public String getFormattedDataUrodzenia() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(String.valueOf(Data_urodzenia));
+            return dateFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception according to your needs
+            return String.valueOf(Data_urodzenia); // Return the original date if an error occurs
+        }
+    }
+
+    public String getFormattedDataZatrudnienia() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(String.valueOf(Data_zatrudnienia));
+            return dateFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception according to your needs
+            return String.valueOf(Data_zatrudnienia); // Return the original date if an error occurs
+        }
+    }
+    public String getFormattedDataZwolnienia() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(String.valueOf(Data_zwolnienia));
+            return dateFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception according to your needs
+            return String.valueOf(Data_zwolnienia); // Return the original date if an error occurs
+        }
     }
 
     public int getNr_pracownika() {
@@ -99,19 +134,19 @@ public class Pracownicy {
         Obywatelstwo = obywatelstwo;
     }
 
-    public String getData_urodzenia() {
+    public Date getData_urodzenia() {
         return Data_urodzenia;
     }
 
-    public void setData_urodzenia(String data_urodzenia) {
+    public void setData_urodzenia(Date data_urodzenia) {
         Data_urodzenia = data_urodzenia;
     }
 
-    public String getData_zatrudnienia() {
+    public Date getData_zatrudnienia() {
         return Data_zatrudnienia;
     }
 
-    public void setData_zatrudnienia(String data_zatrudnienia) {
+    public void setData_zatrudnienia(Date data_zatrudnienia) {
         Data_zatrudnienia = data_zatrudnienia;
     }
 
@@ -123,11 +158,11 @@ public class Pracownicy {
         Email = email;
     }
 
-    public String getData_zwolnienia() {
+    public Date getData_zwolnienia() {
         return Data_zwolnienia;
     }
 
-    public void setData_zwolnienia(String data_zwolnienia) {
+    public void setData_zwolnienia(Date data_zwolnienia) {
         Data_zwolnienia = data_zwolnienia;
     }
 

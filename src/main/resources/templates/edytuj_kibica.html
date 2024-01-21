@@ -5,6 +5,25 @@
     <meta charset="UTF-8">
     <title>Edytuj dane kibica</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+
+    <style>
+
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-image: url('css/boisko.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+  </style>
+    <script>
+    var currentPath = window.location.pathname;
+    var newUrl = window.location.href.replace(currentPath, "/");
+    history.replaceState({}, document.title, newUrl);
+</script>
 </head>
 <body>
 <div align="center" class="container mt-5">
@@ -18,36 +37,36 @@
             </tr>
             <tr>
                 <td>Imie</td>
-                <td><input type="text" th:field="*{imie}"> </td>
+                <td><input type="text" th:field="*{imie}" required> </td>
             </tr>
             <tr>
                 <td>Nazwisko</td>
-                <td><input type="text" th:field="*{nazwisko}"> </td>
+                <td><input type="text" th:field="*{nazwisko}" required> </td>
             </tr>
             <tr>
                 <td>PESEL</td>
-                <td><input type="text" th:field="*{PESEL}"> </td>
+                <td><input type="text" th:field="*{PESEL}" required> </td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input type="text" th:field="*{email}"> </td>
+                <td><input type="text" th:field="*{email}" required> </td>
             </tr>
             <tr>
                 <td>Telefon</td>
-                <td><input type="text" th:field="*{telefon}"> </td>
+                <td><input type="text" th:field="*{telefon}" required> </td>
             </tr>
 
             <tr>
                 <td>Data urodzenia</td>
-                <td><input type="text" th:field="*{data_urodzenia}"> </td>
+                <td><input type="date" th:field="*{data_urodzenia}" required> </td>
             </tr>
             <tr>
                 <td>Numer klubu</td>
-                <td><input type="text" th:field="*{nr_klubu}"> </td>
+                <td><input type="text" th:field="*{nr_klubu}" required> </td>
             </tr>
             <tr>
                 <td>Numer adresu</td>
-                <td><input type="text" th:field="*{nr_adresu}"> </td>
+                <td><input type="text" th:field="*{nr_adresu}" required> </td>
             </tr>
             <tr>
                 <td colspan="2">

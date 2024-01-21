@@ -55,7 +55,7 @@ public class MeczeController {
     @RequestMapping("/deleteMecz/{Nr_meczu}")
     public String delete(@PathVariable(name = "Nr_meczu") int Nr_meczu) {
         dao.delete(Nr_meczu);
-        return "redirect:/mecz";
+        return "redirect:/mecze";
     }
 
 }

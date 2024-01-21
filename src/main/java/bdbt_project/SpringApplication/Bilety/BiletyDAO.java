@@ -36,7 +36,6 @@ public class BiletyDAO {
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
 
         // Explicitly set the date format
-        insertActor.getJdbcTemplate().execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'");
 
         insertActor.withTableName("bilety").usingColumns("Nr_biletu","Rodzaj_biletu","Cena","Data",
                 "Nr_klubu","Nr_kibica","Nr_meczu");

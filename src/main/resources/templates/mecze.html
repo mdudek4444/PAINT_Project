@@ -9,6 +9,24 @@
         <title>Mecze</title>
 
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <style>
+
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-image: url('css/boisko.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+  </style>
+    <script>
+    var currentPath = window.location.pathname;
+    var newUrl = window.location.href.replace(currentPath, "/");
+    history.replaceState({}, document.title, newUrl);
+</script>
     <!-- Dodaj dodatkowe arkusze stylów lub skrypty, jeśli są wymagane -->
 
 </head>
@@ -17,7 +35,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+        <a class="navbar-brand" href="/">Klub piłkarski</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +60,7 @@
     <br/>
 
     <!-- Table -->
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover table-light">
         <!-- Table headers -->
         <thead class="thead-dark">
         <tr>
@@ -64,7 +82,7 @@
         <tr th:each="mecz : ${listMecze}">
             <td th:text="${mecz.nr_meczu}">Numer meczu</td>
             <td th:text="${mecz.druzyna_przeciwna}">Drużyna przeciwna</td>
-            <td th:text="${mecz.data}">Data meczu</td>
+            <td th:text="${mecz.formattedData}">Data meczu</td>
             <td th:text="${mecz.godzina}">Godzina rozpoczęcia meczu/td>
             <td th:text="${mecz.imie_sedziego}">Imię sędziego prowadzącego mecz</td>
             <td th:text="${mecz.nazwisko_sedziego}">Nazwisko sędziego prowadzącego mecz</td>
@@ -72,8 +90,10 @@
             <td th:text="${mecz.nr_klubu}">Numer klubu</td>
             <td th:text="${mecz.nr_stadionu}">Numer stadionu</td>
             <td>
-                <a class="btn btn-warning" th:href="@{'/editMecz/' + ${mecz.nr_meczu}}">Edytuj</a>
-                <a class="btn btn-danger" th:href="@{'/deleteMecz/' + ${mecz.nr_meczu}}">Usuń</a>
+                <div class="btn-group">
+                    <a class="btn btn-warning mx-1" th:href="@{'/editMecz/' + ${mecz.nr_meczu}}">Edytuj</a>
+                    <a class="btn btn-danger mx-1" th:href="@{'/deleteMecz/' + ${mecz.nr_meczu}}">Usuń</a>
+                </div>
             </td>
         </tr>
         </tbody>

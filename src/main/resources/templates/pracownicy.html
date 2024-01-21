@@ -9,15 +9,48 @@
         <title>Pracownicy</title>
 
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <style>
+
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background-image: url('css/boisko.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        display: flex;
+        justify-content: center;
+
+    }
+    <script>
+    var currentPath = window.location.pathname;
+    var newUrl = window.location.href.replace(currentPath, "/");
+    history.replaceState({}, document.title, newUrl);
+</script>
+
+        .table-title {
+            margin-top: 50px; /* Dostosuj wartość marginesu według potrzeb */
+        }
+
+        <style>
+    .center-table {
+        margin: auto;
+    }
+    .table-container {
+        margin-bottom: 5px; /* Dostosuj wartość marginesu według potrzeb */
+    }
+  </style>
     <!-- Dodaj dodatkowe arkusze stylów lub skrypty, jeśli są wymagane -->
 
 </head>
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+        <a class="navbar-brand" href="/">Klub piłkarski</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -31,66 +64,69 @@
     </div>
 </nav>
 
-<div class="container mt-4">
+<div class="container m-4 text-center">
     <!-- Page header -->
-    <h1 class="text-center">Tabela z pracownikami</h1>
+    <h1 class="text-center table-title">Tabela z pracownikami</h1>
 
     <!-- Entry to new page -->
-    <div class="text-center">
+    <div class="text-center text-center">
         <a class="btn btn-primary" href="/newPracownik">Dodaj nowego pracownika</a>
     </div>
     <br/>
 
     <!-- Table -->
-    <table class="table table-bordered table-hover">
-        <!-- Table headers -->
-        <thead class="thead-dark">
-        <tr>
-            <th>Numer pracownika</th>
-            <th>Imie</th>
-            <th>Nazwisko</th>
-            <th>PESEL</th>
-            <th>Plec</th>
-            <th>Telefon sluzbowy</th>
-            <th>Obywatelstwo</th>
-            <th>Data urodzenia</th>
-            <th>Data zatrudnienia</th>
-            <th>Email</th>
-            <th>Data zwolnienia</th>
-            <th>Numer klubu</th>
-            <th>Numer stadionu</th>
-            <th>Numer stanowiska</th>
-            <th>Numer adresu</th>
-            <th>Akcje</th>
-        </tr>
-        </thead>
-        <!-- Table body -->
-        <tbody>
-        <!-- Iteracja przez bilety i wyświetlanie ich informacji -->
-        <tr th:each="pracownik : ${listPracownicy}">
-        <tr th:each="pracownik : ${listPracownicy}">
-            <td th:text="${pracownik.nr_pracownika}">Numer pracownika</td>
-            <td th:text="${pracownik.imie}">Imie</td>
-            <td th:text="${pracownik.nazwisko}">Nazwisko</td>
-            <td th:text="${pracownik.PESEL}">PESEL</td>
-            <td th:text="${pracownik.plec}">Płeć</td>
-            <td th:text="${pracownik.telefon_sluzbowy}">Telefon służbowy</td>
-            <td th:text="${pracownik.obywatelstwo}">Obywatelstwo</td>
-            <td th:text="${pracownik.data_urodzenia}">Data urodzenia</td>
-            <td th:text="${pracownik.data_zatrudnienia}">Data zatrudnienia</td>
-            <td th:text="${pracownik.email}">Email</td>
-            <td th:text="${pracownik.data_zwolnienia}">Data zwolnienia</td>
-            <td th:text="${pracownik.nr_klubu}">Numer klubu</td>
-            <td th:text="${pracownik.nr_stadionu}">Numer stadionu</td>
-            <td th:text="${pracownik.nr_stanowiska}">Numer stanowiska</td>
-            <td th:text="${pracownik.nr_adresu}">Numer adresu</td>
-            <td>
-                <a class="btn btn-warning" th:href="@{'/editPracownik/' + ${pracownik.nr_pracownika}}">Edytuj</a>
-                <a class="btn btn-danger" th:href="@{'/deletePracownik/' + ${pracownik.nr_pracownika}}">Usuń</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="d-flex justify-content-center table-light table-container">
+        <table class="table table-bordered table-hover table-responsive">
+            <!-- Table headers -->
+            <thead class="thead-dark">
+            <tr>
+                <th>Numer pracownika</th>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>PESEL</th>
+                <th>Plec</th>
+                <th>Telefon sluzbowy</th>
+                <th>Obywatelstwo</th>
+                <th>Data urodzenia</th>
+                <th>Data zatrudnienia</th>
+                <th>Email</th>
+                <th>Data zwolnienia</th>
+                <th>Numer klubu</th>
+                <th>Numer stadionu</th>
+                <th>Numer stanowiska</th>
+                <th>Numer adresu</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <!-- Table body -->
+            <tbody>
+            <!-- Iteracja przez bilety i wyświetlanie ich informacji -->
+            <tr th:each="pracownik : ${listPracownicy}">
+                <td class="ml-2" th:text="${pracownik.nr_pracownika}">Numer pracownika</td>
+                <td th:text="${pracownik.imie}">Imie</td>
+                <td th:text="${pracownik.nazwisko}">Nazwisko</td>
+                <td th:text="${pracownik.PESEL}">PESEL</td>
+                <td th:text="${pracownik.plec}">Płeć</td>
+                <td th:text="${pracownik.telefon_sluzbowy}">Telefon służbowy</td>
+                <td th:text="${pracownik.obywatelstwo}">Obywatelstwo</td>
+                <td th:text="${pracownik.formattedDataUrodzenia}">Data urodzenia</td>
+                <td th:text="${pracownik.formattedDataZatrudnienia}">Data zatrudnienia</td>
+                <td th:text="${pracownik.email}">Email</td>
+                <td th:text="${pracownik.formattedDataZwolnienia}">Data zwolnienia</td>
+                <td th:text="${pracownik.nr_klubu}">Numer klubu</td>
+                <td th:text="${pracownik.nr_stadionu}">Numer stadionu</td>
+                <td th:text="${pracownik.nr_stanowiska}">Numer stanowiska</td>
+                <td th:text="${pracownik.nr_adresu}">Numer adresu</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-warning mx-1" th:href="@{'/editPracownik/' + ${pracownik.nr_pracownika}}">Edytuj</a>
+                        <a class="btn btn-danger mx-1" th:href="@{'/deletePracownik/' + ${pracownik.nr_pracownika}}">Usuń</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Przycisk powrotu do strony main w zależności od roli użytkownika -->
     <div class="text-center">
@@ -103,6 +139,7 @@
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
 <!-- Dodaj dodatkowe skrypty, jeśli są wymagane -->
 
 </body>

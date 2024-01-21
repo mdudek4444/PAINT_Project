@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org ">
+
 <head>
     <meta charset="UTF-8">
     <title>Nowy kibic</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+    <style>
+
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-image: url('css/boisko.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+  </style>
+    <script>
+    var currentPath = window.location.pathname;
+    var newUrl = window.location.href.replace(currentPath, "/");
+    history.replaceState({}, document.title, newUrl);
+</script>
 </head>
+
 <body>
 
 <div align="center" class="container mt-5">
@@ -16,46 +36,62 @@
         <table class="table" cellpadding="10">
 
             <tr>
-                <td>Numer kibica:</td>
-                <td><input type="text" th:field="*{nr_kibica}" name="nr_kibica"></td>
+                <td>Numer klubu:</td>
+                <td>
+                    <input type="number" th:field="*{nr_klubu}" name="nr_klubu" required/>
+                </td>
             </tr>
 
             <tr>
                 <td>Imie kibica:</td>
-                <td><input type="text" th:field="*{imie}" name="imie"></td>
+                <td>
+                    <input type="text" th:field="*{imie}" name="imie" required/>
+                </td>
             </tr>
 
             <tr>
                 <td>Nazwisko kibica:</td>
-                <td><input type="text" th:field="*{nazwisko}" name="nazwisko"></td>
+                <td>
+                    <input type="text" th:field="*{nazwisko}" name="nazwisko" required/>
+                </td>
             </tr>
 
             <tr>
                 <td>PESEL:</td>
-                <td><input type="text" th:field="*{PESEL}" name="PESEL"></td>
+                <td>
+                    <input type="number" th:field="*{PESEL}" name="PESEL"required/>
+                </td>
             </tr>
 
             <tr>
                 <td>Email kibica:</td>
-                <td><input type="text" th:field="*{email}" name="email"></td>
+                <td>
+                    <input type="text" th:field="*{email}" name="email" required/>
+                </td>
             </tr>
 
             <tr>
                 <td>Telefon kibica:</td>
-                <td><input type="text" th:field="*{telefon}" name="telefon"></td>
+                <td>
+                    <input type="number" th:field="*{telefon}" name="telefon" required/>
+                </td>
             </tr>
 
             <tr>
                 <td>Data urodzenia kibica:</td>
-                <td><input type="text" th:field="*{data_urodzenia}" name="data_urodzenia"></td>
+                <td>
+                    <input type="date" th:field="*{data_urodzenia}" name="data_urodzenia" required/>
+                </td>
             </tr>
 
+            <!-- Numer adresu -->
             <tr>
                 <td>Numer adresu:</td>
-                <td><input type="text" th:field="*{nr_adresu}" name="nr_adresu"></td>
+                <td>
+                    <input type="number" th:field="*{nr_adresu}" name="nr_adresu" required/>
+                </td>
             </tr>
-
-            </tr>
+            <!-- ... -->
 
             <tr>
                 <td colspan="2">
@@ -66,6 +102,19 @@
                 </td>
             </tr>
         </table>
+
+<!--        &lt;!&ndash; Komunikaty ogólne o błędach formularza &ndash;&gt;
+        <div th:if="${#fields.hasErrors()}">
+            <div class="alert alert-danger">
+                <p>Błąd walidacji formularza:</p>
+                <ul>
+                    <li th:each="error : ${#fields.errors()}">
+                        <span th:text="${error}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+
     </form>
 </div>
 

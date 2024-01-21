@@ -1,72 +1,133 @@
-
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <title>Welcome Page</title>
 
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}" />
+
+  <style>
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-image: url('css/boisko.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .center-text {
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 50px;
+    }
+
+    .image-in-corner {
+      position: fixed;
+      top: 200px;
+      right: 20px;
+      max-width: 300px;
+      max-height: 300px;
+      border: 5px solid #fff; /* Dodana ramka */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Dodany cień */
+      margin-bottom: 20px; /* Dodany odstęp pionowy między obrazami */
+    }
+
+    .image-caption {
+      position: fixed;
+      top: 150px; /* Dostosuj pozycję napisu nad obrazem */
+      right: 80px;
+      text-align: center;
+      font-size: 18px;
+      color: #000; /* Zmieniony kolor na czarny */
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .info-box {
+      position: fixed;
+      top: 180px;
+      left: 20px;
+      width: 320px; /* Dostosuj szerokość prostokąta */
+      background-color: #fff;
+      border: 5px solid #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 10px;
+      text-align: justify; /* Wyjustuj tekst */
+    }
+
+    .centered-image {
+      position: fixed;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 600px;
+      max-height: 500px;
+      border: 5px solid #fff; /* Dodana ramka */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Dodany cień */
+    }
+  </style>
 
 </head>
 
-<!-- <body th:style="'background: url(/assets/img/img.png) no-repeat center center fixed;'"> -->
-
-
-<!--<style th:inline="text">-->
-<!--    body{-->
-<!--        background: url([[@{/assets/img/img.png}]])-->
-<!--        no-repeat center center fixed;-->
-<!--    }-->
-<!--</style>-->
-
+<body>
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
-    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/">Klub piłkarski</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home
+          <a class="nav-link" href="#">Strona główna
             <span class="sr-only">(current)</span>
           </a>
         </li>
-
-
+        <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/main}">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Zaloguj</button>
+        </form>
       </ul>
     </div>
   </div>
 </nav>
 
-
-<!--Using images in page    -->
-<!-- <img th:src="@{/assets/img/img.png}" alt="Image" class="img-fluid"> -->
-
-
 <div class="container">
   <div class="row">
-    <div class="col-md-10 mt-5">
-
-      <label style="font-size:30px">Welcome to the home page!</label>
-      <div style="font-size:20px">If you want to login, click <a th:href="@{/main}"><b>here</b></a> or in the
-        upper right corner.
-      </div>
-
+    <div class="col-md-12 mt-5 center-text">
+      Witamy w naszym klubie
     </div>
   </div>
 </div>
 
+<div class="image-caption">Nadchodzące mecze</div>
+
+<div class="image-in-corner">
+  <img src="css/wynik.jpg" width="100%" height="auto">
+</div>
+<div class="image-in-corner" style="top: 350px;">
+  <img src="css/wynik1.jpg" width="100%" height="auto">
+</div>
+
+<div class="info-box">
+  <p style="font-weight: bold;">O klubie</p>
+  <p>Nasz klub został stworzony na potrzeby przedmiotu Bazy Danych i Big Data. Jest to druga część projektu realizowanego w ramach tego przedmiotu. Założycielami klubu są Marcin Dudek oraz Kacper Karczmarek studenci politechniki Warszawskiej na kierunku Telekomunikacja. Dzięki włożonemu wysiłkowi i zaangażowaniu piłkarzy, kibice mogą czerpać niezapomniane emocje.</p>
+</div>
+
+<div class="centered-image">
+  <img src="css/trener.jpg" width="100%" height="auto">
+</div>
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 </body>
-</html>
 
+</html>

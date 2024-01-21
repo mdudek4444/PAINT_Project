@@ -1,34 +1,67 @@
 package bdbt_project.SpringApplication.Kibice;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class Kibice {
 
+    @NotNull(message = "Pole nie może być puste")
     private int Nr_kibica;
+
+    @NotEmpty(message = "Pole nie może być puste")
     private String Imie;
+
+    @NotEmpty(message = "Pole nie może być puste")
     private String Nazwisko;
+
+
+    @Min(value = 10000000000L, message = "PESEL must be at least 11 digits long")
     private int PESEL;
+
+    @NotEmpty(message = "Pole nie może być puste")
     private String Email;
+
+    @NotNull(message = "Pole nie może być puste")
     private int Telefon;
+
+    @NotEmpty(message = "Pole nie może być puste")
     private String Data_urodzenia;
-    private String Data_zatrudnienia;
+
+    @NotNull(message = "Pole nie może być puste")
     private int Nr_klubu;
+
+    @NotNull(message = "Pole nie może być puste")
     private int Nr_adresu;
 
     public Kibice(int nr_kibica, String imie, String nazwisko, int PESEL, String email,
-                  int telefon, String data_urodzenia, String data_zatrudnienia, int nr_klubu, int nr_adresu) {
+                  int telefon, Date data_urodzenia, int nr_klubu, int nr_adresu) {
         this.Nr_kibica = nr_kibica;
         this.Imie = imie;
         this.Nazwisko = nazwisko;
         this.PESEL = PESEL;
         this.Email = email;
         this.Telefon = telefon;
-        this.Data_urodzenia = data_urodzenia;
-        this.Data_zatrudnienia = data_zatrudnienia;
+        this.Data_urodzenia = String.valueOf(data_urodzenia);
         this.Nr_klubu = nr_klubu;
         this.Nr_adresu = nr_adresu;
     }
 
     public Kibice(){
 
+    }
+
+    public String getFormattedDataUrodzenia() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(Data_urodzenia);
+            return dateFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception according to your needs
+            return Data_urodzenia; // Return the original date if an error occurs
+        }
     }
 
 
@@ -88,14 +121,6 @@ public class Kibice {
         Data_urodzenia = data_urodzenia;
     }
 
-    public String getData_zatrudnienia() {
-        return Data_zatrudnienia;
-    }
-
-    public void setData_zatrudnienia(String data_zatrudnienia) {
-        Data_zatrudnienia = data_zatrudnienia;
-    }
-
     public int getNr_klubu() {
         return Nr_klubu;
     }
@@ -122,7 +147,6 @@ public class Kibice {
                 ", Email='" + Email + '\'' +
                 ", Telefon=" + Telefon +
                 ", Data_urodzenia='" + Data_urodzenia + '\'' +
-                ", Data_zatrudnienia='" + Data_zatrudnienia + '\'' +
                 ", Nr_klubu=" + Nr_klubu +
                 ", Nr_adresu=" + Nr_adresu +
                 '}';

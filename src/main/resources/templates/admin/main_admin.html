@@ -1,66 +1,71 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <title>Main Admin Page</title>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}" />
+  <style>
+        .card {
+            margin-bottom: 25px;
+        }
 
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+        .card-title-button {
+            width: 100%;
+            text-align: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #007bff; /* Bootstrap primary color */
+        }
 
+        .card-title-button:hover {
+            text-decoration: underline;
+        }
+
+          body {
+    background-image: url('css/boisko.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+    </style>
+
+  <script>
+    var currentPath = window.location.pathname;
+    var newUrl = window.location.href.replace(currentPath, "/");
+    history.replaceState({}, document.title, newUrl);
+</script>
 </head>
+
+
 <body>
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
-    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <a class="navbar-brand" href="/">Klub piłkarski</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
+        <form method="post" th:action="@{/index}">
+          <input type="hidden" name="dummy" value="dummy" />
+          <button class="nav-link" type="submit" style="border: none; background: none;">Strona główna</button>
+        </form>
+
+        <!-- Add your other navigation items here -->
 
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/index}">Home</a>
-        </li>
-
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Main
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-
-        <li class="nav-item" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
-          <a class="nav-link" th:href="@{/bilety}">Bilety</a>
-        </li>
-
-        <li class="nav-item" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
-          <a class="nav-link" th:href="@{/pracownicy}">Pracownicy</a>
-        </li>
-
-        <li class="nav-item" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
-          <a class="nav-link" th:href="@{/kibice}">Kibice</a>
-        </li>
-
-        <li class="nav-item" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
-          <a class="nav-link" th:href="@{/zamowienia}">Zamówienia</a>
-        </li>
-
-        <li class="nav-item" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
-          <a class="nav-link" th:href="@{/mecze}">Mecze</a>
-        </li>
-
-        <li class="nav-item" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
-          <a class="nav-link" th:href="@{/produkty}">Produkty</a>
-        </li>
-
-
-        <li class="nav-item">
-          <a class="nav-link" th:inline="text" style="color:lightskyblue;">You are logged in as <b
+          <a class="nav-link" th:inline="text" style="color:lightskyblue;">Jesteś zalogowany jako <b
                   style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
         </li>
-
+        <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                  onclick="successfullyLogout()">Wyloguj</button>
+        </form>
       </ul>
     </div>
   </div>
@@ -72,25 +77,156 @@
     <div class="col-md-10 mt-5">
       <form method="post" th:action="@{/logout}">
         <div class="form-group">
-          <label style="font-size:30px" th:inline="text">Welcome <a
+          <label style="font-size:30px" th:inline="text">Witaj w panelu <a
                   style="color:lightskyblue; text-transform:capitalize"><b>[[${#httpServletRequest.remoteUser}]]</b></a>
-            to the main page!</label>
-          <div style="font-size:20px">If you want to logout, click "Logout" button under this text.</div>
+          </label>
         </div>
 
-        <button class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Sign Out">Logout
-        </button>
+        <div class="row">
+          <!-- Card 1 -->
+          <div class="col-md-4">
+            <div class="card">
+              <a href="/bilety">
+                <img src="css/bilety.jpg" class="card-img-top img-fluid"
+                     style="object-fit: cover; height: 250px;">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title"><a href="/bilety">Bilety</a></h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col-md-4">
+            <div class="card">
+              <a href="/pracownicy">
+                <img src="css/pracownicy.jpg" class="card-img-top"
+                     style="object-fit: cover; height: 250px;">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title"><a href="/pracownicy">Pracownicy</a></h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-md-4">
+            <div class="card">
+              <a href="/kibice">
+                <img src="css/kibice.jpg" class="card-img-top"
+                     style="object-fit: cover; height: 250px;">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title"><a href="/kibice">Kibice</a></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Card 4 -->
+          <div class="col-md-4">
+            <div class="card">
+              <a href="/zamowienia">
+                <img src="css/zamowienie.jpg" class="card-img-top"
+                     style="object-fit: cover; height: 250px;">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title"><a href="/zamowienia">Zamówienia</a></h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="col-md-4">
+            <div class="card">
+              <a href="/mecze">
+                <img src="css/mecz.jpg" class="card-img-top"
+                     style="object-fit: cover; height: 250px;">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title"><a href="/mecze">Mecze</a></h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="col-md-4">
+            <div class="card">
+              <a href="/produkty">
+                <img src="css/produkty.jpg" class="card-img-top"
+                     style="object-fit: cover; height: 250px;">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title"><a href="/produkty">Produkty</a></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </form>
     </div>
-
   </div>
 </div>
 
+<div class="modal fade" id="timeoutModal" tabindex="-1" role="dialog" aria-labelledby="timeoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="timeoutModalLabel">Przekroczono czas bezczynności na stronie</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Chcesz zostać na stronie?
+      </div>
+      <div class="modal-footer">
+
+        <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Wyloguj</button>
+        </form>
+        <button type="button" class="btn btn-primary" onclick="resetTimer(); $('#timeoutModal').modal('hide');">Zostań</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/script.js}"></script>
 
+
+
+
+<script>
+    var timeout;
+
+    function startTimer() {
+      timeout = setTimeout(showTimeoutModal, 20000); // 20 seconds
+    }
+
+    function resetTimer() {
+      clearTimeout(timeout);
+      startTimer();
+    }
+
+    function logout() {
+      window.location.href = '/logout'; // Redirect to the logout URL
+    }
+
+    function showTimeoutModal() {
+      $('#timeoutModal').modal('show');
+    }
+
+    document.addEventListener('mousemove', resetTimer);
+    document.addEventListener('keypress', resetTimer);
+
+    startTimer(); // Start the timer initially
+</script>
+
 </body>
+
 </html>

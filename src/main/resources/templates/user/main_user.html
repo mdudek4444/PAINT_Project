@@ -6,13 +6,56 @@
 
   <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
+  <style>
+
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-image: url('css/boisko.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+     .image-in-corner {
+      position: fixed;
+      top: 120px;
+      right: 20px;
+      max-width: 300px;
+      max-height: 300px;
+      border: 5px solid #fff; /* Dodana ramka */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Dodany cień */
+      margin-bottom: 20px; /* Dodany odstęp pionowy między obrazami */
+    }
+        .image-caption {
+      position: fixed;
+      top: 80px; /* Dostosuj pozycję napisu nad obrazem */
+      right: 80px;
+      text-align: center;
+      font-size: 18px;
+      color: #000; /* Zmieniony kolor na czarny */
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+  </style>
+
+  <script>
+    if (window.location.href.endsWith("/main_user")) {
+        var newUrl = window.location.href.replace("/main_user", "");
+        history.replaceState({}, document.title, newUrl);
+    }
+</script>
+
+
+
 </head>
 <body>
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
-    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <a class="navbar-brand" href="/">Klub piłkarski</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -21,43 +64,63 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
 
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/index}">Home</a>
-        </li>
+        <form method="post" th:action="@{/index}">
+          <input type="hidden" name="dummy" value="dummy"/>
+          <button class="nav-link" type="submit" style="border: none; background: none;">Strona główna</button>
+        </form>
 
         <li class="nav-item active">
-          <a class="nav-link" href="#">Main
+          <a class="nav-link" href="#">Panel
             <span class="sr-only">(current)</span>
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" th:inline="text" style="color:lightskyblue;">You are logged in as <b
-                  style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
+          <a class="nav-link" th:inline="text" style="color:lightskyblue;">Jesteś zalogowany jako <b
+                  style="text-transform:capitalize">Szef kibiców</b></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/bilety}">Bilety</a>
-        </li>
+        <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                  onclick="successfullyLogout()">Wyloguj</button>
+        </form>
+      </ul>
 
       </ul>
     </div>
   </div>
 </nav>
 
-<div class="container">
+<div class="container center-content">
   <div class="row">
 
     <div class="col-md-10 mt-5">
       <form method="post" th:action="@{/logout}">
         <div class="form-group">
-          <label style="font-size:30px" th:inline="text">Welcome <a
-                  style="color:lightskyblue; text-transform:capitalize"><b>[[${#httpServletRequest.remoteUser}]]</b></a>
-            to the main page!</label>
-          <div style="font-size:20px">If you want to logout, click "Logout" button under this text.</div>
+          <label style="font-size:30px" th:inline="text">Witaj w panelu konta  <a
+                  style="color:lightskyblue; text-transform:capitalize"><b>Szef kibiców</b></a>
+            </label>
         </div>
 
-        <button class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Sign Out">Logout
-        </button>
+        <div class="col-md-4">
+          <div class="card">
+            <a href="/kibice">
+              <img src="css/kibice.jpg" class="card-img-top"
+                   style="object-fit: cover; height: 250px;">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title"><a href="/kibice">Kibice</a></h5>
+            </div>
+          </div>
+        </div>
+        <div class="image-caption">Nadchodzące mecze</div>
+
+        <div class="image-in-corner">
+          <img src="css/wynik.jpg" width="100%" height="auto">
+        </div>
+        <div class="image-in-corner" style="top: 280px;">
+          <img src="css/wynik1.jpg" width="100%" height="auto">
+        </div>
+
       </form>
     </div>
 
@@ -69,6 +132,33 @@
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/script.js}"></script>
+
+<script>
+    var timeout;
+
+    function startTimer() {
+      timeout = setTimeout(showTimeoutModal, 20000); // 20 seconds
+    }
+
+    function resetTimer() {
+      clearTimeout(timeout);
+      startTimer();
+    }
+
+    function logout() {
+      window.location.href = '/logout'; // Redirect to the logout URL
+    }
+
+    function showTimeoutModal() {
+      $('#timeoutModal').modal('show');
+    }
+
+    document.addEventListener('mousemove', resetTimer);
+    document.addEventListener('keypress', resetTimer);
+
+    startTimer(); // Start the timer initially
+</script>
+
 
 </body>
 </html>
