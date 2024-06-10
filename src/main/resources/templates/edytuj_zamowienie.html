@@ -6,15 +6,20 @@
     <title>Edytuj zamowienie</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
     <style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
     body {
-      width: 100%;
-      height: 100vh;
-      margin: 0;
-      background-image: url('css/boisko.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+        min-height: 100vh;
+        background-image: url('/css/boisko.jpg'); /* Upewnij się, że ścieżka jest poprawna */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 
   </style>

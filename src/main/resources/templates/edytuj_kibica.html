@@ -5,31 +5,35 @@
     <meta charset="UTF-8">
     <title>Edytuj dane kibica</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
-
     <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      width: 100%;
-      height: 100vh;
-      margin: 0;
-      background-image: url('css/boisko.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+        body {
+            min-height: 100vh;
+            background-image: url('/css/boisko.jpg'); /* Upewnij się, że ścieżka jest poprawna */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
 
-  </style>
+    </style>
     <script>
-    var currentPath = window.location.pathname;
-    var newUrl = window.location.href.replace(currentPath, "/");
-    history.replaceState({}, document.title, newUrl);
-</script>
+        var currentPath = window.location.pathname;
+        var newUrl = window.location.href.replace(currentPath, "/");
+        history.replaceState({}, document.title, newUrl);
+    </script>
 </head>
 <body>
 <div align="center" class="container mt-5">
     <h1>Edycja danych kibica</h1>
     <br/>
-    <form action="#" th:action="@{/updateKibic}" th:object="${kibice}" method="post">
+    <form th:action="@{/updateKibic}" th:object="${kibice}" method="post">
         <table class="table" cellpadding="10">
             <tr>
                 <td>Numer kibica</td>
@@ -81,6 +85,5 @@
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
 </body>
 </html>

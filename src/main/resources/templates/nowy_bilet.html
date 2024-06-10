@@ -35,40 +35,43 @@
 
       <tr>
         <td>Numer biletu:</td>
-        <td><input type="text" th:field="*{nr_biletu}" name="nr_biletu"></td>
+        <td><input type="text" th:field="*{nr_biletu}" name="nr_biletu" required></td>
       </tr>
 
       <tr>
         <td>Rodzaj biletu:</td>
         <td>
-          <input type="text" th:field="*{rodzaj_biletu}" name="rodzaj_biletu">
-          <span th:if="${customError}" class="text-danger" th:text="${customError}"></span>
+          <select th:field="*{rodzaj_biletu}" name="rodzaj_biletu" required>
+            <option value="" disabled selected>Wybierz rodzaj biletu</option>
+            <option value="Ulgowy">Ulgowy</option>
+            <option value="Normalny">Normalny</option>
+          </select>
         </td>
       </tr>
 
       <tr>
         <td>Cena:</td>
-        <td><input type="text" th:field="*{cena}" name="cena"></td>
+        <td><input type="text" th:field="*{cena}" name="cena"> required</td>
       </tr>
 
       <tr>
         <td>Data:</td>
-        <td><input type="text" th:field="*{data}" name="data"></td>
+        <td><input type="date" th:field="*{data}" name="data" required></td>
       </tr>
 
       <tr>
         <td>Numer klubu:</td>
-        <td><input type="text" th:field="*{nr_klubu}" name="nr_klubu"></td>
+        <td><input type="text" th:field="*{nr_klubu}" name="nr_klubu" required></td>
       </tr>
 
       <tr>
         <td>Numer kibica:</td>
-        <td><input type="text" th:field="*{nr_kibica}" name="nr_kibica"></td>
+        <td><input type="text" th:field="*{nr_kibica}" name="nr_kibica" required></td>
       </tr>
 
       <tr>
         <td>Numer meczu:</td>
-        <td><input type="text" th:field="*{nr_meczu}" name="nr_meczu"></td>
+        <td><input type="text" th:field="*{nr_meczu}" name="nr_meczu" required></td>
       </tr>
 
       <tr>

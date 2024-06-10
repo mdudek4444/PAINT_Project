@@ -6,17 +6,26 @@
     <title>Nowy pracownik</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
     <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
 
     body {
-      width: 100%;
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
       background-image: url('css/boisko.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      background-attachment: fixed; /* Ensure the background image stays fixed in place */
     }
 
+    .container {
+      background: rgba(255, 255, 255, 0.8); /* semi-transparent background for better readability */
+      padding: 20px;
+      border-radius: 10px;
+    }
   </style>
     <script>
     var currentPath = window.location.pathname;
@@ -35,47 +44,53 @@
 
             <tr>
                 <td>Numer pracownika:</td>
-                <td><input type="text" th:field="*{nr_pracownika}" name="nr_pracownika"></td>
+                <td><input type="text" th:field="*{nr_pracownika}" name="nr_pracownika" required></td>
             </tr>
 
             <tr>
                 <td>Imie pracownika:</td>
-                <td><input type="text" th:field="*{imie}" name="imie"></td>
+                <td><input type="text" th:field="*{imie}" name="imie" required></td>
             </tr>
 
             <tr>
                 <td>Nazwisko pracownika:</td>
-                <td><input type="text" th:field="*{nazwisko}" name="nazwisko"></td>
+                <td><input type="text" th:field="*{nazwisko}" name="nazwisko" required></td>
             </tr>
 
             <tr>
                 <td>PESEL:</td>
-                <td><input type="text" th:field="*{PESEL}" name="PESEL"></td>
+                <td><input type="text" th:field="*{PESEL}" name="PESEL" required></td>
             </tr>
 
             <tr>
                 <td>Płeć:</td>
-                <td><input type="text" th:field="*{plec}" name="plec"></td>
+                <td>
+                <select th:field="*{plec}" name="plec" required>
+                    <option value="" disabled selected>Wybierz płeć</option>
+                    <option value="M">Mężczyzna</option>
+                    <option value="K">Kobieta</option>
+                </select>
+                <td>
             </tr>
 
             <tr>
                 <td>Telefon służbowy pracownika:</td>
-                <td><input type="text" th:field="*{telefon_sluzbowy}" name="telefon_sluzbowy"></td>
+                <td><input type="text" th:field="*{telefon_sluzbowy}" name="telefon_sluzbowy" required></td>
             </tr>
 
             <tr>
                 <td>Obywatelstwo pracownika:</td>
-                <td><input type="text" th:field="*{obywatelstwo}" name="obywatelstwo"></td>
+                <td><input type="text" th:field="*{obywatelstwo}" name="obywatelstwo" required></td>
             </tr>
 
             <tr>
                 <td>Data urodzenia pracownika:</td>
-                <td><input type="text" th:field="*{data_urodzenia}" name="data_urodzenia"></td>
+                <td><input type="date" th:field="*{data_urodzenia}" name="data_urodzenia" required></td>
             </tr>
 
             <tr>
                 <td>Data zatrudnienia pracownika:</td>
-                <td><input type="text" th:field="*{data_zatrudnienia}" name="data_zatrudnienia"></td>
+                <td><input type="date" th:field="*{data_zatrudnienia}" name="data_zatrudnienia" required></td>
             </tr>
 
             <tr>
@@ -85,26 +100,26 @@
 
             <tr>
                 <td>Data zwolnienia pracownika:</td>
-                <td><input type="hidden" th:field="*{data_zwolnienia}" name="data_zwolnienia"></td>
+                <td><input type="hidden" th:field="*{data_zwolnienia}" name="data_zwolnienia" ></td>
             </tr>
 
             <tr>
                 <td>Numer klubu:</td>
-                <td><input type="text" th:field="*{nr_klubu}" name="nr_klubu"></td>
+                <td><input type="text" th:field="*{nr_klubu}" name="nr_klubu" required></td>
             </tr>
 
             <tr>
                 <td>Numer stadionu:</td>
-                <td><input type="text" th:field="*{nr_stadionu}" name="nr_stadionu"></td>
+                <td><input type="text" th:field="*{nr_stadionu}" name="nr_stadionu" required></td>
 
             <tr>
                 <td>Numer stanowiska:</td>
-                <td><input type="text" th:field="*{nr_stanowiska}" name="nr_stanowiska"></td>
+                <td><input type="text" th:field="*{nr_stanowiska}" name="nr_stanowiska" required></td>
             </tr>
 
             <tr>
                 <td>Numer adresu:</td>
-                <td><input type="text" th:field="*{nr_adresu}" name="nr_adresu"></td>
+                <td><input type="text" th:field="*{nr_adresu}" name="nr_adresu" required></td>
             </tr>
 
             </tr>

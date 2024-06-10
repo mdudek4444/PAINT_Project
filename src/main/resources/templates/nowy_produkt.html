@@ -7,22 +7,22 @@
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
     <style>
 
-    body {
-      width: 100%;
-      height: 100vh;
-      margin: 0;
-      background-image: url('css/boisko.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+        body {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            background-image: url('css/boisko.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
-  </style>
+    </style>
     <script>
-    var currentPath = window.location.pathname;
-    var newUrl = window.location.href.replace(currentPath, "/");
-    history.replaceState({}, document.title, newUrl);
-</script>
+        var currentPath = window.location.pathname;
+        var newUrl = window.location.href.replace(currentPath, "/");
+        history.replaceState({}, document.title, newUrl);
+    </script>
 </head>
 <body>
 
@@ -35,37 +35,50 @@
 
             <tr>
                 <td>Numer produktu:</td>
-                <td><input type="text" th:field="*{nr_produktu}" name="nr_produktu"></td>
+                <td><input type="text" th:field="*{nr_produktu}" name="nr_produktu" required></td>
             </tr>
 
             <tr>
                 <td>Nazwa produktu:</td>
-                <td><input type="text" th:field="*{nazwa_produktu}" name="nazwa_produktu"></td>
+                <td><input type="text" th:field="*{nazwa_produktu}" name="nazwa_produktu" required></td>
             </tr>
 
             <tr>
                 <td>Cena:</td>
-                <td><input type="text" th:field="*{cena}" name="cena"></td>
+                <td><input type="text" th:field="*{cena}" name="cena" required></td>
             </tr>
 
             <tr>
                 <td>Rodzaj produktu:</td>
-                <td><input type="text" th:field="*{rodzaj_produktu}" name="rodzaj_produktu"></td>
+                <td>
+                    <select th:field="*{rodzaj_produktu}" name="rodzaj_produktu" required>
+                        <option value="" disabled selected>Wybierz rodzaj produktu</option>
+                        <option value="Koszulka">Koszulka</option>
+                        <option value="Szalik">Szalik</option>
+                        <option value="Czapka">Czapka</option>
+                    </select>
+                </td>
             </tr>
 
             <tr>
                 <td>Nazwa producenta:</td>
-                <td><input type="text" th:field="*{producent}" name="producent"></td>
+                <td>
+                    <select th:field="*{producent}" name="producent" required>
+                        <option value="" disabled selected>Wybierz producenta</option>
+                        <option value="Rgol">Rgol</option>
+                        <option value="DomKibica">DomKibica</option>
+                    </select>
+                </td>
             </tr>
 
             <tr>
                 <td>Numer klubu:</td>
-                <td><input type="text" th:field="*{nr_klubu}" name="nr_klubu"></td>
+                <td><input type="text" th:field="*{nr_klubu}" name="nr_klubu" required></td>
             </tr>
 
             <tr>
                 <td>Numer producenta:</td>
-                <td><input type="text" th:field="*{nr_producenta}" name="nr_producenta"></td>
+                <td><input type="text" th:field="*{nr_producenta}" name="nr_producenta" required></td>
             </tr>
 
             <tr>

@@ -3,62 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <title>Kibice</title>
-
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
   <style>
-
-    body {
-      width: 100%;
-      height: 100vh;
-      margin: 0;
-      background-image: url('css/boisko.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-  </style>
+        body {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            background-image: url('css/boisko.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
   <script>
-    var currentPath = window.location.pathname;
-    var newUrl = window.location.href.replace(currentPath, "/");
-    history.replaceState({}, document.title, newUrl);
-</script>
-  <!-- Dodaj dodatkowe arkusze stylów lub skrypty, jeśli są wymagane -->
-
+        var currentPath = window.location.pathname;
+        var newUrl = window.location.href.replace(currentPath, "/");
+        history.replaceState({}, document.title, newUrl);
+    </script>
 </head>
 <body>
-
-<!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
     <a class="navbar-brand" href="/">Klub piłkarski</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <!-- Dodaj dowolne elementy nawigacyjne, jeśli są wymagane -->
       </ul>
     </div>
   </div>
 </nav>
 
 <div class="container mt-4">
-  <!-- Page header -->
-  <h1 class="text-center">Tabela z kibicami</h1>
-
-  <!-- Entry to new page -->
-  <div class="text-center">
-    <!-- Dla roli ADMIN -->
-    <a th:if="${#httpServletRequest.isUserInRole('ADMIN')}" class="btn btn-primary" href="/newKibic">Dodaj nowego kibica</a>
+  <div class="text-center" th:if="${#httpServletRequest.isUserInRole('USER')}">
+    <h1 class="text-center">Moje dane</h1>
+  </div>
+  <div class="text-center" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
+    <h1 class="text-center">Tabela z kibicami</h1>
+  </div>
+  <div class="text-center" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
+    <a class="btn btn-primary" href="/newKibic">Dodaj nowego kibica</a>
   </div>
   <br/>
-
-  <!-- Table -->
   <table class="table table-bordered table-hover table-light">
-    <!-- Table headers -->
     <thead class="thead-dark">
     <tr>
       <th>Numer kibica</th>
@@ -73,10 +62,25 @@
       <th>Akcje</th>
     </tr>
     </thead>
-    <!-- Table body -->
     <tbody>
-    <!-- Iteracja przez bilety i wyświetlanie ich informacji -->
-    <tr th:each="kibic : ${listKibice}">
+    <!-- Iteracja przez kibiców i wyświetlanie ich informacji -->
+    <tr th:if="${#httpServletRequest.isUserInRole('USER')}" th:each="kibic : ${listKibice}">
+      <td th:if="${kibic.nr_kibica == 1}" th:text="${kibic.nr_kibica}">Numer kibica</td>
+      <td th:if="${kibic.nr_kibica == 1}" th:text="${kibic.imie}">Imie</td>
+      <td th:if="${kibic.nr_kibica == 1}" th:text="${kibic.nazwisko}">Nazwisko</td>
+      <td th:if="${kibic.nr_kibica == 1}" th:text="${kibic.PESEL}">PESEL</td>
+      <td th:if="${kibic.nr_kibica == 1}" th:text="${kibic.email}">Email</td>
+      <td th:if="${kibic.nr_kibica == 1}" th:text="${kibic.telefon}">Telefon</td>
+      <td th:if="${kibic.nr_kibica == 1}" th:text="${kibic.formattedDataUrodzenia}">Data urodzenia</td>
+      <td th:if="${kibic.nr_kibica == 1}" th:text="${kibic.nr_klubu}">Numer klubu</td>
+      <td th:if="${kibic.nr_kibica == 1}" th:text="${kibic.nr_adresu}">Numer adresu</td>
+      <td th:if="${kibic.nr_kibica == 1}">
+        <div class="btn-group">
+          <a class="btn btn-warning mx-1" th:href="@{'/editKibic/' + ${kibic.nr_kibica}}">Edytuj</a>
+        </div>
+      </td>
+    </tr>
+    <tr th:unless="${#httpServletRequest.isUserInRole('USER')}" th:each="kibic : ${listKibice}">
       <td th:text="${kibic.nr_kibica}">Numer kibica</td>
       <td th:text="${kibic.imie}">Imie</td>
       <td th:text="${kibic.nazwisko}">Nazwisko</td>
@@ -88,12 +92,7 @@
       <td th:text="${kibic.nr_adresu}">Numer adresu</td>
       <td>
         <div class="btn-group">
-          <!-- Dla roli USER -->
-          <a th:if="${#httpServletRequest.isUserInRole('USER')}" class="btn btn-warning mx-1" th:href="@{'/editKibic/' + ${kibic.nr_kibica}}">Edytuj</a>
-          <!-- Dla roli ADMIN -->
-          <a th:if="${#httpServletRequest.isUserInRole('ADMIN')}" class="btn btn-warning mx-1" th:href="@{'/editKibic/' + ${kibic.nr_kibica}}">Edytuj</a>
-
-          <!-- Dla roli ADMIN -->
+          <a class="btn btn-warning mx-1" th:href="@{'/editKibic/' + ${kibic.nr_kibica}}">Edytuj</a>
           <a th:if="${#httpServletRequest.isUserInRole('ADMIN')}" class="btn btn-danger" th:href="@{'/deleteKibic/' + ${kibic.nr_kibica}}">Usuń</a>
         </div>
       </td>
@@ -101,18 +100,13 @@
     </tbody>
   </table>
 
-  <!-- Przycisk powrotu do strony main w zależności od roli użytkownika -->
   <div class="text-center">
     <a class="btn btn-secondary" th:href="@{${#httpServletRequest.isUserInRole('ADMIN')} ? '/main_admin' : '/main_user'}">Wróć</a>
   </div>
 </div>
 
-<!-- Dodaj dodatkowe skrypty, jeśli są wymagane -->
-
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<!-- Dodaj dodatkowe skrypty, jeśli są wymagane -->
-
 </body>
 </html>

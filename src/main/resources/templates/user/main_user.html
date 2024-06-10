@@ -7,7 +7,6 @@
   <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
   <style>
-
     body {
       width: 100%;
       height: 100vh;
@@ -17,27 +16,32 @@
       background-position: center;
       background-repeat: no-repeat;
     }
-     .image-in-corner {
+
+    .image-in-corner {
       position: fixed;
       top: 120px;
       right: 20px;
       max-width: 300px;
       max-height: 300px;
-      border: 5px solid #fff; /* Dodana ramka */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Dodany cień */
-      margin-bottom: 20px; /* Dodany odstęp pionowy między obrazami */
+      border: 5px solid #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
     }
-        .image-caption {
+
+   .image-in-corner img:hover {
+    filter: brightness(120%);
+   }
+
+    .image-caption {
       position: fixed;
-      top: 80px; /* Dostosuj pozycję napisu nad obrazem */
+      top: 80px;
       right: 80px;
       text-align: center;
       font-size: 18px;
-      color: #000; /* Zmieniony kolor na czarny */
+      color: #000;
       padding: 5px;
       border-radius: 5px;
     }
-
   </style>
 
   <script>
@@ -45,13 +49,9 @@
         var newUrl = window.location.href.replace("/main_user", "");
         history.replaceState({}, document.title, newUrl);
     }
-</script>
-
-
-
+  </script>
 </head>
 <body>
-
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
@@ -63,28 +63,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-
         <form method="post" th:action="@{/index}">
           <input type="hidden" name="dummy" value="dummy"/>
           <button class="nav-link" type="submit" style="border: none; background: none;">Strona główna</button>
         </form>
-
         <li class="nav-item active">
           <a class="nav-link" href="#">Panel
             <span class="sr-only">(current)</span>
           </a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" th:inline="text" style="color:lightskyblue;">Jesteś zalogowany jako <b
-                  style="text-transform:capitalize">Szef kibiców</b></a>
+                  style="text-transform:capitalize">Użytkownik</b></a>
         </li>
         <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
                   onclick="successfullyLogout()">Wyloguj</button>
         </form>
-      </ul>
-
       </ul>
     </div>
   </div>
@@ -92,41 +87,54 @@
 
 <div class="container center-content">
   <div class="row">
-
     <div class="col-md-10 mt-5">
       <form method="post" th:action="@{/logout}">
         <div class="form-group">
-          <label style="font-size:30px" th:inline="text">Witaj w panelu konta  <a
-                  style="color:lightskyblue; text-transform:capitalize"><b>Szef kibiców</b></a>
-            </label>
+          <label style="font-size:30px" th:inline="text">Witaj w panelu konta <a
+                  style="color:lightskyblue; text-transform:capitalize"><b>Okowalski</b></a></label>
         </div>
-
         <div class="col-md-4">
           <div class="card">
             <a href="/kibice">
-              <img src="css/kibice.jpg" class="card-img-top"
-                   style="object-fit: cover; height: 250px;">
+              <img src="css/dane_kibic.jpg" class="card-img-top" style="object-fit: cover; height: 400px;">
             </a>
             <div class="card-body">
-              <h5 class="card-title"><a href="/kibice">Kibice</a></h5>
+              <h5 class="card-title"><a href="/kibice">Moje dane</a></h5>
             </div>
           </div>
         </div>
         <div class="image-caption">Nadchodzące mecze</div>
-
         <div class="image-in-corner">
           <img src="css/wynik.jpg" width="100%" height="auto">
         </div>
         <div class="image-in-corner" style="top: 280px;">
           <img src="css/wynik1.jpg" width="100%" height="auto">
         </div>
-
       </form>
     </div>
-
   </div>
 </div>
 
+<!-- Timeout Modal -->
+<div class="modal fade" id="timeoutModal" tabindex="-1" role="dialog" aria-labelledby="timeoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="timeoutModalLabel">Brak aktywności</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Twoja sesja wygaśnie z powodu braku aktywności. Czy chcesz kontynuować?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+        <button type="button" class="btn btn-primary" onclick="logout()">Wyloguj</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
@@ -134,31 +142,23 @@
 <script th:src="@{/js/script.js}"></script>
 
 <script>
-    var timeout;
-
-    function startTimer() {
-      timeout = setTimeout(showTimeoutModal, 20000); // 20 seconds
-    }
-
-    function resetTimer() {
-      clearTimeout(timeout);
-      startTimer();
-    }
-
-    function logout() {
-      window.location.href = '/logout'; // Redirect to the logout URL
-    }
-
-    function showTimeoutModal() {
-      $('#timeoutModal').modal('show');
-    }
-
-    document.addEventListener('mousemove', resetTimer);
-    document.addEventListener('keypress', resetTimer);
-
-    startTimer(); // Start the timer initially
+  var timeout;
+  function startTimer() {
+    timeout = setTimeout(showTimeoutModal, 20000); // 20 seconds
+  }
+  function resetTimer() {
+    clearTimeout(timeout);
+    startTimer();
+  }
+  function logout() {
+    window.location.href = '/logout'; // Redirect to the logout URL
+  }
+  function showTimeoutModal() {
+    $('#timeoutModal').modal('show');
+  }
+  document.addEventListener('mousemove', resetTimer);
+  document.addEventListener('keypress', resetTimer);
+  startTimer(); // Start the timer initially
 </script>
-
-
 </body>
 </html>

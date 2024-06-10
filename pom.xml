@@ -68,7 +68,7 @@
 			<artifactId>ojdbc10</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>C:/Users/marci/Desktop/OracleJDBCdriver/ojdbc10.jar</systemPath>
+			<systemPath>../../../../SpringApplication (2)/SpringApplication/ojdbc10.jar</systemPath>
 		</dependency>
 
 		<!-- New adding start -->

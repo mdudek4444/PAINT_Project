@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -17,21 +17,16 @@ public class KibiceController {
     private KibiceDAO dao;
 
     @RequestMapping("/kibice")
-    public String viewHomePage(Model model) {
-        List<Kibice> listKibice = dao.list();
-        model.addAttribute("listKibice", listKibice);
+    public String viewHomePage(Model model, Principal principal) {
+        if (principal != null && principal.getName().equals("USER")) {
+            Kibice specificKibic = dao.getFirst();  // Pobierz rekord o numerze kibica 1
+            model.addAttribute("listKibice", List.of(specificKibic));
+        } else {
+            List<Kibice> listKibice = dao.list();
+            model.addAttribute("listKibice", listKibice);
+        }
         return "kibice";
     }
-
-
-
-    @RequestMapping("/newKibic")
-    public String showNowyKibic(Model model) {
-        Kibice kibice = new Kibice();
-        model.addAttribute("kibice", kibice);
-        return "nowy_kibic";
-    }
-
 
     @RequestMapping(value = "/saveKibic", method = RequestMethod.POST)
     public String save(@Valid @ModelAttribute("kibice") Kibice kibice, BindingResult bindingResult,Model model) {
@@ -57,11 +52,10 @@ public class KibiceController {
     }
 
     @RequestMapping("/deleteKibic/{Nr_kibica}")
-    public String delete(@PathVariable(name = "Nr_kibica") int Nr_kibica) {
-        dao.delete(Nr_kibica);
+    public String delete(@PathVariable(name = "Nr_kibica") int Nr_kibica, Principal principal) {
+        if (principal != null && principal.getName().equals("ADMIN")) {
+            dao.delete(Nr_kibica);
+        }
         return "redirect:/kibice";
     }
-
-
-
 }
